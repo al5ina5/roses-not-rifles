@@ -4,7 +4,7 @@ import Window from './Window'
 export default function StreamWindow({ close, desktopRef }) {
     return (
         <Window title='The Stream' offset={50} close={close} desktopRef={desktopRef}>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+            {/* <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
                 {new Array(100).fill(100).map(() => (
                     <>
                         <div
@@ -14,7 +14,7 @@ export default function StreamWindow({ close, desktopRef }) {
                             }}></div>
                     </>
                 ))}
-            </div>
+            </div> */}
         </Window>
     )
 }

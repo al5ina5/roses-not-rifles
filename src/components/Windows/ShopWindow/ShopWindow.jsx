@@ -53,9 +53,9 @@ export default function ShopWindow({ close, desktopRef }) {
                 </Button>
             </div> */}
 
-            {isProducts && <ProductsTab />}
+            {/* {isProducts && <ProductsTab />}
             {isCart && <CartTab />}
-            {isCheckout && <CheckoutTab />}
+            {isCheckout && <CheckoutTab />} */}
         </Window>
     )
 }
