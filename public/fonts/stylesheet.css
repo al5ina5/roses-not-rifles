@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'pix M 8pt';
+    src: url('MyFont.eot');
+    src: url('MyFont.eot?#iefix') format('embedded-opentype'),
+        url('MyFont.woff2') format('woff2'),
+        url('MyFont.woff') format('woff'),
+        url('MyFont.svg#MyFont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
