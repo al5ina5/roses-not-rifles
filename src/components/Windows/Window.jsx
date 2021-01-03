@@ -36,7 +36,9 @@ export default function Window({ title, offset, close, taskbar, children }) {
                     } ${topClasses} space-y-1 border-emboss absolute flex flex-col pointer-events-auto bg-win-gray p-1`}>
                     <Topbar title={title} maximize={() => setFullScreen((s) => !s)} close={close} />
                     {taskbar}
-                    <div className='bg-white border-emboss-invert h-full p-3 overflow-auto'>{children}</div>
+                    <div className='bg-white border-emboss-invert h-full p-3 overflow-auto'>
+                        <div className='container mx-auto'>{children}</div>
+                    </div>
                 </div>
             </Draggable>
         </>

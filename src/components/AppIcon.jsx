@@ -27,7 +27,7 @@ export default function AppIcon({ title, src, onDoubleClick, desktopRef }) {
                 onDoubleClick={onDoubleClick}
                 onDragStart={() => setActive(true)}
                 className={`p-2 border-dotted border-white  border-2 rounded text-center w-32 inline-block ${activeClases}`}>
-                <img className='transform mx-auto mb-4 pointer-events-none' src={src} alt='' />
+                <img className='transform mx-auto mb-4 h-22 pointer-events-none' src={src} alt={title} />
                 <span className='text-white'>{title}</span>
             </motion.div>
         </>
