@@ -4,9 +4,12 @@ export default function Topbar({ title, maximize, close }) {
         <>
             <div className="flex items-center bg-win-darkblue px-2 py-1 text-white">
                 <div className="dragger w-full">{title}</div>
-                <div className="ml-auto whitespace-no-wrap space-x-1 text-black">
+                <div className="ml-auto space-x-1 text-black flex flex-row items-center">
                     {maximize && (
-                        <Button className="font-win-bold" onClick={maximize}>
+                        <Button
+                            className="font-win-bold whitespace-nowrap"
+                            onClick={maximize}
+                        >
                             [ ]
                         </Button>
                     )}
