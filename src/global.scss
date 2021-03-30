@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 * {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
@@ -17,6 +17,39 @@ body,
     font-size: 16px;
 }
 
+@keyframes pixel-spin {
+    0% {
+        transform: rotate(0.5turn);
+    }
+    49% {
+        transform: rotate(0.5turn);
+    }
+    50% {
+        transform: rotate(0turn);
+    }
+    99% {
+        transform: rotate(0turn);
+    }
+    100% {
+        transform: rotate(0.5turn);
+    }
+}
+
+.pixel-spin {
+    position: relative;
+    animation-name: pixel-spin;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+.wordpress-content {
+    img {
+        width: 100%;
+        text-align: center;
+        margin: 2rem auto;
+    }
+}
+
 .win-dropdown {
     -webkit-appearance: none;
     background-repeat: no-repeat;
@@ -29,7 +62,7 @@ body,
 }
 
 .square:after {
-    content: '';
+    content: "";
     display: block;
     padding-bottom: 100%;
 }
@@ -80,18 +113,20 @@ body,
 }
 
 @font-face {
-    font-family: 'Win98';
-    src: url('/fonts/Win98.eot');
-    src: url('/fonts/Win98.eot?#iefix') format('embedded-opentype'), url('/fonts/Win98.woff2') format('woff2'),
-        url('/fonts/Win98.woff') format('woff'), url('/fonts/Win98.ttf') format('truetype'),
-        url('/fonts/Win98.svg#/fonts/Win98') format('svg');
+    font-family: "Win98";
+    src: url("/fonts/Win98.eot");
+    src: url("/fonts/Win98.eot?#iefix") format("embedded-opentype"),
+        url("/fonts/Win98.woff2") format("woff2"),
+        url("/fonts/Win98.woff") format("woff"),
+        url("/fonts/Win98.ttf") format("truetype"),
+        url("/fonts/Win98.svg#/fonts/Win98") format("svg");
     // font-weight: normal;
     // font-style: normal;
     // font-display: swap;
 }
 
 .font-win {
-    font-family: 'Win98', Fallback, sans-serif;
+    font-family: "Win98", Fallback, sans-serif;
     letter-spacing: 1px;
 }
 

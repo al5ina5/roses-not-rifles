@@ -14,17 +14,6 @@ export default function IndexPage() {
     const desktopRef = useRef();
 
     const [shutdown, setShutdown] = useState(false);
-
-    const [alert, setAlert] = useState(null);
-
-    const triggerAlert = (data) => {
-        setAlert({ ...data });
-
-        setTimeout(() => {
-            setAlert(null);
-        }, 2000);
-    };
-
     const [showStream, setShowStream] = useState(false);
     const [showShop, setShowShop] = useState(false);
     const [showStart, setShowStart] = useState(false);
@@ -34,6 +23,7 @@ export default function IndexPage() {
         setShowStart(false);
         setShutdown(true);
     };
+
     return (
         <>
             {shutdown && <Shutdown setShutdown={setShutdown} />}
@@ -80,12 +70,6 @@ export default function IndexPage() {
                             </a>
                         </div>
                         <div className="absolute pointer-events-none inset-0">
-                            <AlertWindow
-                                alert={alert}
-                                setAlert={setAlert}
-                                close={() => console.log("test")}
-                                desktopRef={desktopRef}
-                            />
                             {showStream && (
                                 <StreamWindow
                                     close={() => setShowStream(false)}
@@ -124,13 +108,7 @@ export default function IndexPage() {
                             <span className="pl-8  font-win-bold">Start</span>
                         </div>
                     </Button>
-                    <Button
-                        onClick={() => {
-                            triggerAlert({ title: "yes", message: "23123" });
-                        }}
-                    >
-                        Twitter
-                    </Button>
+                    <Button onClick={() => {}}>Twitter</Button>
                     <Button>Instagram</Button>
                     <Button>YouTube</Button>
                     <Button>Behance</Button>
