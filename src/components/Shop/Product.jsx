@@ -4,13 +4,19 @@ import Button from "../Button";
 import arraysEqual from "array-equal";
 import ShopContext from "../../context/ShopContext";
 import shortid from "shortid";
+import { usePopups } from "../PopsProvider";
 
-export default function Product({ id, name, price, img, attributes }) {
+export default function Product({ id, name, price, img, product, attributes }) {
     const { data: variations, error } = useSWR(`/api/products/variants/${id}`);
 
     const [selectedVariation, setSelectedVariation] = useState(null);
 
+    const { createAlert } = usePopups();
+
     const { state, dispatch } = useContext(ShopContext);
+
+    const outOfStock = selectedVariation?.stock_quantity <= 0;
+    const disabled = !selectedVariation || outOfStock;
 
     return (
         <>
@@ -47,21 +53,31 @@ export default function Product({ id, name, price, img, attributes }) {
                             ))}
                         </div>
 
-                        <p>Price: {price}</p>
-                        <p>
-                            Laboris laborum aliquip aliqua amet consectetur
-                            proident.
-                        </p>
+                        <p className="text-lg font-win-bold">${price}</p>
+
+                        <p
+                            dangerouslySetInnerHTML={{
+                                __html: product.description,
+                            }}
+                        ></p>
+
+                        {selectedVariation && (
+                            <>
+                                <p className="text-xs font-win-bold">
+                                    Stock: {selectedVariation?.stock_quantity}{" "}
+                                    {outOfStock && (
+                                        <span className="font-win">
+                                            Out of stock
+                                        </span>
+                                    )}
+                                </p>
+                            </>
+                        )}
                     </div>
 
-                    <div
-                        className={`${
-                            selectedVariation
-                                ? "opacity-100"
-                                : "opacity-25 cursor-not-allowed"
-                        } flex mt-auto`}
-                    >
+                    <div className="flex mt-auto">
                         <Button
+                            disabled={disabled}
                             onClick={() => {
                                 dispatch({
                                     type: "cart.add",
@@ -76,6 +92,10 @@ export default function Product({ id, name, price, img, attributes }) {
                                         data: selectedVariation,
                                     },
                                 });
+                                createAlert(
+                                    "Product added to cart",
+                                    `${name} was added to your cart.`
+                                );
                             }}
                             className="ml-auto"
                         >
