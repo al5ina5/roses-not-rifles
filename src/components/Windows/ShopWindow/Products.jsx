@@ -11,6 +11,7 @@ export default function ProductsTab({ close, desktopRef }) {
             {products.map((product, index) => (
                 <Product
                     key={index}
+                    product={product}
                     id={product.id}
                     name={product.name}
                     price={product.price}
