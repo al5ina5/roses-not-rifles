@@ -347,6 +347,12 @@ export default function CheckoutTab({ close, desktopRef }) {
                             with your favorite crypto.
                         </p>
 
+                        {/* <Button
+                            className="font-win-bold"
+                            onClick={() => createOrder("ASDJKAS")}
+                        >
+                            Sample Order
+                        </Button> */}
                         <div
                             className={
                                 disabled ? "pointer-events-none opacity-25" : ""
