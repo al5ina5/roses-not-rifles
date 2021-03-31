@@ -9,6 +9,7 @@ import ShopWindow from "../components/Windows/ShopWindow/ShopWindow";
 import StreamWindow from "../components/Windows/StreamWindow";
 import shortid from "shortid";
 import AboutWindow from "../components/Windows/AboutWindow";
+import BooterSequence from "../components/BooterSequence";
 
 export default function IndexPage() {
     const desktopRef = useRef();
@@ -26,6 +27,8 @@ export default function IndexPage() {
 
     return (
         <>
+            <BooterSequence />
+
             {shutdown && <Shutdown setShutdown={setShutdown} />}
             <div className="flex flex-col h-full font-win">
                 <div

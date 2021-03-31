@@ -4,7 +4,7 @@ import Window from "./Windows/Window";
 export default function Modal({ visible, hide, children }) {
     if (!visible) return null;
     return (
-        <div className="absolute flex items-center justify-center inset-0 z-50 p-6">
+        <>
             <div
                 onClick={hide}
                 className="absolute inset-0 bg-win-darkblue"
@@ -14,6 +14,6 @@ export default function Modal({ visible, hide, children }) {
                 <Topbar title="System Notification" close={hide} />
                 <div className="p-5">{children}</div>
             </div>
-        </div>
+        </>
     );
 }

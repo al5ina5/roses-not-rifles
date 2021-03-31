@@ -33,6 +33,7 @@ export default function Window({
                 onDrag={(event, data) => {
                     if (!fullScreen) setDragPos(data);
                 }}
+                // position={dragPos}
                 position={fullScreen ? { x: 0, y: 0 } : dragPos}
                 grid={[25, 25]}
                 scale={1}
