@@ -1,5 +1,5 @@
 import shortid from "shortid";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import Window from "./Windows/Window";
 import Modal from "./Modal";
 import Alert from "./Alert";
@@ -13,7 +13,11 @@ export default function PopsProvider({ children }) {
         children: <p>React</p>,
     };
 
-    const [windows, setWindows] = useState([]);
+    const [pops, setPops] = useState([]);
+
+    const popRefs = useRef();
+
+    const windows = pops.filter((pop) => pop.type === "window");
 
     const triggerAlert = (data) => {
         setAlert({ ...data });
@@ -24,7 +28,7 @@ export default function PopsProvider({ children }) {
     };
 
     const removeWindow = (wid) =>
-        setWindows((_) => _.filter((results) => results.id !== wid));
+        setPops((_) => _.filter((results) => results.id !== wid));
 
     const createWindow = (props) => {
         const id = shortid.generate();
@@ -35,7 +39,7 @@ export default function PopsProvider({ children }) {
             ...props,
         };
 
-        setWindows([...windows, newWindow]);
+        setPops([...pops, newWindow]);
     };
 
     const createModal = (title, subtitle, children) => {
@@ -49,7 +53,7 @@ export default function PopsProvider({ children }) {
             children,
         };
 
-        setWindows([...windows, newWindow]);
+        setPops([...pops, newWindow]);
     };
 
     const createAlert = (title, subtitle) => {
@@ -64,7 +68,7 @@ export default function PopsProvider({ children }) {
         };
 
         console.log(`Creating alert ${newWindow.id}`);
-        setWindows([...windows, newWindow]);
+        setPops([...pops, newWindow]);
 
         setTimeout(() => removeWindow(newWindow.id), 3000);
     };
@@ -73,15 +77,20 @@ export default function PopsProvider({ children }) {
         <PopsContext.Provider
             value={{
                 windows,
-                setWindows,
+                pops,
+                setPops,
+                popRefs,
                 removeWindow,
                 createWindow,
                 createModal,
                 createAlert,
             }}
         >
-            <div className="absolute z-50 top-0 right-0 p-6 space-y-6">
-                {windows.map((window, index) => {
+            <div
+                ref={popRefs}
+                className="absolute z-50 top-0 right-0 p-6 space-y-6"
+            >
+                {pops.map((window, index) => {
                     if (window.type == "alert")
                         return (
                             <Alert
@@ -95,7 +104,7 @@ export default function PopsProvider({ children }) {
                     return null;
                 })}
             </div>
-            {windows.map((window, index) => {
+            {pops.map((window, index) => {
                 if (window.type == "modal")
                     return (
                         <Modal
@@ -117,6 +126,7 @@ export default function PopsProvider({ children }) {
                 if (window.type == "window")
                     return (
                         <Window
+                            ref={(ref) => (popRefs.current[window.id] = ref)}
                             fullScreen={window.fullscreen}
                             key={window.id}
                             title={window.title}

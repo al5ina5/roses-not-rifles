@@ -363,7 +363,7 @@ export default function CheckoutTab({ close, desktopRef }) {
                                 onSuccess={async (details, data) => {
                                     createOrder(details.orderID);
                                 }}
-                                catchError={(e) => alert("An error ocurred.")}
+                                catchError={(e) => alert("An error occurred.")}
                                 options={{
                                     clientId:
                                         "AVi6nK4oMY5K78xyH4puUR4R7U5yTT0bbHdjB_b-Y2QreIc60NR4rbfElG8ED3CfIu_kSivCzVN52Jv2",

@@ -31,6 +31,7 @@ export default function Product({ id, name, price, img, product, attributes }) {
                         <div>
                             {variations?.map((variation, index) => (
                                 <Button
+                                    key={index}
                                     onClick={(e) =>
                                         setSelectedVariation(variation)
                                     }
@@ -38,6 +39,7 @@ export default function Product({ id, name, price, img, product, attributes }) {
                                     {variation.attributes.map(
                                         (attribute, index) => (
                                             <span
+                                                key={index}
                                                 className={
                                                     selectedVariation?.id ==
                                                     variation.id

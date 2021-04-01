@@ -10,7 +10,7 @@ export default function ProductsTab({ close, desktopRef }) {
         <div className="space-y-4">
             {products.map((product, index) => (
                 <Product
-                    key={index}
+                    key={product.id}
                     product={product}
                     id={product.id}
                     name={product.name}
