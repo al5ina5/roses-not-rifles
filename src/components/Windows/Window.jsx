@@ -62,7 +62,7 @@ const Window = forwardRef(
                         onPointerDown={() => setTop(true)}
                         className={`${
                             fullScreen
-                                ? "h-full w-full z-50"
+                                ? "h-full w-full z-40"
                                 : "max-w-3/4 max-h-3/4"
                         } ${topClasses} space-y-1 border-emboss absolute flex flex-col pointer-events-auto bg-win-gray p-1 ${className}`}
                     >

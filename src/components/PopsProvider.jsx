@@ -88,7 +88,7 @@ export default function PopsProvider({ children }) {
         >
             <div
                 ref={popRefs}
-                className="absolute z-50 top-0 right-0 p-6 space-y-6"
+                className="absolute z-40 top-0 right-0 p-6 space-y-6"
             >
                 {pops.map((window, index) => {
                     if (window.type == "alert")

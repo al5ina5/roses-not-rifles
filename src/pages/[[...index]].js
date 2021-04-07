@@ -43,7 +43,7 @@ export default function IndexPage() {
                     ref={desktopRef}
                     className="flex relative bg-win-blue overflow-hidden block h-full"
                 >
-                    <div className="absolute p-12 inset-0 z-0 flex items-center justify-center">
+                    <div className="absolute p-12 inset-0 flex items-center justify-center">
                         <img
                             className="w-64 opacity-75"
                             src="/img/roses-not-rifles-v4.png"
@@ -84,43 +84,24 @@ export default function IndexPage() {
                                 })
                             }
                         />
-                        {/* <AppIcon
-                            title="Shoutbox"
-                            src="/img/win-98/msg_information-0.png"
-                            onDoubleClick={() =>
-                                createWindow({
-                                    title: "ShoutBox",
-                                    children: <ShoutBox />,
-                                })
-                            }
-                        /> */}
-                        {/* <AppIcon
-                            title="Music Station"
-                            src="/img/win-98/computer_sound-4.png"
-                            onDoubleClick={() =>
-                                createWindow({
-                                    title: "Music Station",
-                                    children: <MusicStation />,
-                                })
-                            }
-                        /> */}
-                        <div className="absolute bottom-0 right-0 p-4">
-                            <a
-                                target="_blank"
-                                href="https://sebastianalsina.com"
-                                className="block border-emboss text-xs transform scale-75 origin-bottom-right opacity-50 hover:opacity-100 text-white p-1"
-                            >
-                                {"</>"} by Sebastian Alsina
-                            </a>
-                        </div>
-                        <div className="absolute pointer-events-none inset-0">
-                            {showStart && (
-                                <StartMenu
-                                    shutdown={doShutdown}
-                                    toggle={() => setShowStart((s) => !s)}
-                                />
-                            )}
-                        </div>
+                    </div>
+
+                    <div className="absolute bottom-0 right-0 p-4">
+                        <a
+                            target="_blank"
+                            href="https://sebastianalsina.com"
+                            className="block border-emboss text-xs transform scale-75 origin-bottom-right opacity-50 hover:opacity-100 text-white p-1"
+                        >
+                            {"</>"} by Sebastian Alsina
+                        </a>
+                    </div>
+                    <div className="absolute z-50 pointer-events-none inset-0">
+                        {showStart && (
+                            <StartMenu
+                                shutdown={doShutdown}
+                                toggle={() => setShowStart((s) => !s)}
+                            />
+                        )}
                     </div>
                 </div>
                 <Taskbar>
