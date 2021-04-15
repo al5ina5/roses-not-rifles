@@ -25,13 +25,19 @@ export default function Contact() {
     const onSubmit = async () => {
         setLoading(true);
         try {
-            // await axios.post("/api/contact", { text: lines.join("\r\n") });
+            await axios.post("/api/contact", { text: lines.join("\r\n") });
             createModal(
                 "Message sent.",
                 "Your message has been sent across the interwebs.",
                 null
             );
-        } catch (error) {}
+        } catch (error) {
+            createModal(
+                "An error occurred.",
+                "Your message could not be sent across the interwebs. Please try again later.",
+                null
+            );
+        }
         setLoading(false);
     };
 

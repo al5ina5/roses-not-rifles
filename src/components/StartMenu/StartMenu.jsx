@@ -23,7 +23,7 @@ export default function StartMenu({ shutdown, toggle }) {
         <>
             <div
                 ref={startRef}
-                className="z-50 pointer-events-auto max-w-sm w-full absolute p-1 bottom-0"
+                className="z-40 pointer-events-auto max-w-sm w-full absolute p-1 bottom-0"
             >
                 <div className="w-full bg-win-gray border-emboss">
                     <div className="bg-black bg-opacity-25 p-2">

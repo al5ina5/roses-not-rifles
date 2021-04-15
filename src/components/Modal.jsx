@@ -7,12 +7,12 @@ export default function Modal({ visible, hide, children }) {
         <>
             <div
                 onClick={hide}
-                className="absolute inset-0 bg-win-darkblue"
-                style={{ opacity: "0.98" }}
-            />
-            <div className="bg-win-gray p-1 border-emboss z-10 w-full max-w-sm">
-                <Topbar title="System Notification" close={hide} />
-                <div className="p-5">{children}</div>
+                className="absolute inset-0 z-50 bg-win-darkblue flex items-center justify-center"
+            >
+                <div className="bg-win-gray p-1 border-emboss z-10 w-full max-w-sm">
+                    <Topbar title="System Notification" close={hide} />
+                    <div className="p-5">{children}</div>
+                </div>
             </div>
         </>
     );

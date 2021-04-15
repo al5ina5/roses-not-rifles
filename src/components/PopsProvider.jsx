@@ -104,28 +104,30 @@ export default function PopsProvider({ children }) {
                     return null;
                 })}
             </div>
+
+            {pops.map((window, index) => {
+                if (window.type == "modal")
+                    return (
+                        <Modal
+                            visible={true}
+                            hide={() => removeWindow(window.id)}
+                            key={window.id}
+                        >
+                            <div className="space-y-4">
+                                <div className="space-y-2">
+                                    <p className="font-medium">
+                                        {window.title}
+                                    </p>
+                                    <p className="text-xs">{window.subtitle}</p>
+                                </div>
+                                {window.children}
+                            </div>
+                        </Modal>
+                    );
+            })}
+
             <div className="absolute inset-0 pointer-events-none flex md:items-center md:justify-center">
                 {pops.map((window, index) => {
-                    if (window.type == "modal")
-                        return (
-                            <Modal
-                                visible={true}
-                                hide={() => removeWindow(window.id)}
-                                key={window.id}
-                            >
-                                <div className="space-y-4">
-                                    <div className="space-y-2">
-                                        <p className="font-medium">
-                                            {window.title}
-                                        </p>
-                                        <p className="text-xs">
-                                            {window.title}
-                                        </p>
-                                    </div>
-                                    {window.children}
-                                </div>
-                            </Modal>
-                        );
                     if (window.type == "window")
                         return (
                             <Window

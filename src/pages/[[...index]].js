@@ -95,7 +95,7 @@ export default function IndexPage() {
                             {"</>"} by Sebastian Alsina
                         </a>
                     </div>
-                    <div className="absolute z-50 pointer-events-none inset-0">
+                    <div className="absolute z-40 pointer-events-none inset-0">
                         {showStart && (
                             <StartMenu
                                 shutdown={doShutdown}

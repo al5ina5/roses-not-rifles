@@ -10,11 +10,9 @@ module.exports = async (req, res) => {
             order: slackPost.data,
         });
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
         res.status(500).json({
-            body: "Error.",
-            query: req.query,
-            cookies: req.cookies,
+            message: "Error.",
         });
     }
 };
