@@ -104,7 +104,7 @@ export default function PopsProvider({ children }) {
                     return null;
                 })}
             </div>
-            <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+            <div className="absolute inset-0 pointer-events-none flex md:items-center md:justify-center">
                 {pops.map((window, index) => {
                     if (window.type == "modal")
                         return (
@@ -137,9 +137,10 @@ export default function PopsProvider({ children }) {
                                 title={window.title}
                                 offset={
                                     25 *
-                                    windows.map(
+                                    (windows.map(
                                         (window) => window.type === "window"
-                                    ).length
+                                    ).length -
+                                        1)
                                 }
                                 close={() => removeWindow(window.id)}
                             >
