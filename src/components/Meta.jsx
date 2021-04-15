@@ -7,7 +7,7 @@ const Meta = () => {
 
     return (
         <Head>
-            <title>{title} &copy;</title>
+            <title>&copy; {title}</title>
             <meta name="description" content={description} />
             <meta property="og:type" content="website" />
             <meta name="og:title" property="og:title" content={title} />
@@ -26,16 +26,13 @@ const Meta = () => {
             <link
                 rel="icon"
                 type="image/png"
-                href="/img/logos/LOGOMARK - COLOR_1.png"
+                href="/img/roses-not-rifles-emoji.png"
             />
-            <link
-                rel="apple-touch-icon"
-                href="/img/logos/LOGOMARK - COLOR_1.png"
-            />
-            <meta property="og:image" content="/img/upsocia-banner.png" />
+            <link rel="apple-touch-icon" href="/img/roses-not-rifles-avi.png" />
+            <meta property="og:image" content="/img/roses-not-rifles-avi.png" />
             <meta
                 name="twitter:image"
-                content="/img/logos/LOGOMARK - COLOR_1.png"
+                content="/img/logos/roses-not-rifles-avi.png"
             />
         </Head>
     );
