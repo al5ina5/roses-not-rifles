@@ -106,7 +106,7 @@ export default function IndexPage() {
                 </div>
                 <Taskbar>
                     <Button onClick={() => setShowStart((s) => !s)}>
-                        <div className="flex items-center">
+                        <div className="flex items-center whitespace-nowrap">
                             <img
                                 className="absolute w-6"
                                 src="/img/win-98/win-98.png"

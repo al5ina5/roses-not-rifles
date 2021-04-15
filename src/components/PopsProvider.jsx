@@ -88,7 +88,7 @@ export default function PopsProvider({ children }) {
         >
             <div
                 ref={popRefs}
-                className="absolute z-40 top-0 right-0 p-6 space-y-6"
+                className="pointer-events-none absolute z-40 top-0 right-0 p-6 space-y-6"
             >
                 {pops.map((window, index) => {
                     if (window.type == "alert")
@@ -104,39 +104,51 @@ export default function PopsProvider({ children }) {
                     return null;
                 })}
             </div>
-            {pops.map((window, index) => {
-                if (window.type == "modal")
-                    return (
-                        <Modal
-                            visible={true}
-                            hide={() => removeWindow(window.id)}
-                            key={window.id}
-                        >
-                            <div className="space-y-4">
-                                <div className="space-y-2">
-                                    <p className="font-medium">
-                                        {window.title}
-                                    </p>
-                                    <p className="text-xs">{window.title}</p>
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                {pops.map((window, index) => {
+                    if (window.type == "modal")
+                        return (
+                            <Modal
+                                visible={true}
+                                hide={() => removeWindow(window.id)}
+                                key={window.id}
+                            >
+                                <div className="space-y-4">
+                                    <div className="space-y-2">
+                                        <p className="font-medium">
+                                            {window.title}
+                                        </p>
+                                        <p className="text-xs">
+                                            {window.title}
+                                        </p>
+                                    </div>
+                                    {window.children}
                                 </div>
+                            </Modal>
+                        );
+                    if (window.type == "window")
+                        return (
+                            <Window
+                                ref={(ref) =>
+                                    (popRefs.current[window.id] = ref)
+                                }
+                                fullScreen={window.fullscreen}
+                                key={window.id}
+                                title={window.title}
+                                offset={
+                                    25 *
+                                    windows.map(
+                                        (window) => window.type === "window"
+                                    ).length
+                                }
+                                close={() => removeWindow(window.id)}
+                            >
                                 {window.children}
-                            </div>
-                        </Modal>
-                    );
-                if (window.type == "window")
-                    return (
-                        <Window
-                            ref={(ref) => (popRefs.current[window.id] = ref)}
-                            fullScreen={window.fullscreen}
-                            key={window.id}
-                            title={window.title}
-                            offset={25}
-                            close={() => removeWindow(window.id)}
-                        >
-                            {window.children}
-                        </Window>
-                    );
-            })}
+                            </Window>
+                        );
+                })}
+            </div>
+
             {children}
         </PopsContext.Provider>
     );

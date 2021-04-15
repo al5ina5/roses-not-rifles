@@ -45,39 +45,38 @@ const Window = forwardRef(
         });
 
         return (
-            <div ref={ref}>
-                <Draggable
-                    axis="both"
-                    handle=".dragger"
-                    onDrag={(event, data) => {
-                        if (!fullScreen) setDragPos(data);
-                    }}
-                    // position={dragPos}
-                    position={fullScreen ? { x: 0, y: 0 } : dragPos}
-                    grid={[25, 25]}
-                    scale={1}
+            <Draggable
+                axis="both"
+                handle=".dragger"
+                onDrag={(event, data) => {
+                    if (!fullScreen) setDragPos(data);
+                }}
+                // position={dragPos}
+                position={fullScreen ? { x: 0, y: 0 } : dragPos}
+                grid={[25, 25]}
+                scale={1}
+                ref={ref}
+            >
+                <div
+                    ref={windowRef}
+                    onPointerDown={() => setTop(true)}
+                    className={`${
+                        fullScreen
+                            ? "h-full w-full z-40"
+                            : "max-w-3/4 max-h-3/4"
+                    } ${topClasses} max-w-full space-y-1 border-emboss absolute flex flex-col pointer-events-auto bg-win-gray p-1 ${className}`}
                 >
-                    <div
-                        ref={windowRef}
-                        onPointerDown={() => setTop(true)}
-                        className={`${
-                            fullScreen
-                                ? "h-full w-full z-40"
-                                : "max-w-3/4 max-h-3/4"
-                        } ${topClasses} space-y-1 border-emboss absolute flex flex-col pointer-events-auto bg-win-gray p-1 ${className}`}
-                    >
-                        <Topbar
-                            title={title}
-                            maximize={() => setFullScreen((s) => !s)}
-                            close={close}
-                        />
-                        {taskbar}
-                        <div className="bg-white border-emboss-invert h-full p-3 overflow-auto">
-                            <div className="container mx-auto">{children}</div>
-                        </div>
+                    <Topbar
+                        title={title}
+                        maximize={() => setFullScreen((s) => !s)}
+                        close={close}
+                    />
+                    {taskbar}
+                    <div className="bg-white border-emboss-invert h-full p-3 overflow-auto">
+                        <div className="container mx-auto">{children}</div>
                     </div>
-                </Draggable>
-            </div>
+                </div>
+            </Draggable>
         );
     }
 );

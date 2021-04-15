@@ -15,7 +15,7 @@ export default function ProductsTab({ close, desktopRef }) {
                     id={product.id}
                     name={product.name}
                     price={product.price}
-                    img={product.images?.[0].src}
+                    img={product?.images?.[0]?.src}
                     attributes={product.attributes}
                 />
             ))}
