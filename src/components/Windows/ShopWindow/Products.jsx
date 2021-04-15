@@ -7,7 +7,7 @@ export default function ProductsTab({ close, desktopRef }) {
     if (error) return "An error occurred... :(";
     if (!products) return "Loading...";
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {products.map((product, index) => (
                 <Product
                     key={product.id}
