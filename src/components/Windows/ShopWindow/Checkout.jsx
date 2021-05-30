@@ -326,7 +326,7 @@ export default function CheckoutTab({ close, desktopRef }) {
                                 amount={subtotal()}
                                 onSuccess={async (details, data) => {
                                     createOrder(details.orderID)
-                                    createModal('Order confrimed! :)', "We'll email you when your items have shipped.", null)
+                                    createModal('Order confirmed! :)', "We'll email you when your items have shipped.", null)
 
                                     dispatch({
                                         type: 'set',
