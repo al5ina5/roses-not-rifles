@@ -1,115 +1,102 @@
-import Product from "../../Shop/Product";
-import Button from "../../Button";
-import { useContext, useState } from "react";
-import ShopContext from "../../../context/ShopContext";
-import Axios from "axios";
-import { PayPalButton } from "react-paypal-button-v2";
+import Product from '../../Shop/Product'
+import Button from '../../Button'
+import { useContext, useState } from 'react'
+import ShopContext from '../../../context/ShopContext'
+import Axios from 'axios'
+import { PayPalButton } from 'react-paypal-button-v2'
+import { usePopups } from '../../PopsProvider'
 
 export default function CheckoutTab({ close, desktopRef }) {
-    const [coupon, setCoupon] = useState("");
+    const [coupon, setCoupon] = useState('')
 
-    const { state, dispatch } = useContext(ShopContext);
+    const { state, dispatch } = useContext(ShopContext)
+    const { createModal } = usePopups()
 
-    const isEmpty = state?.line_items?.length <= 0;
+    const isEmpty = state?.line_items?.length <= 0
 
     const subtotal = () => {
-        var total = 0;
+        var total = 0
 
         state?.line_items?.map((item) => {
-            total = total + parseFloat(item.data.price);
-            return total;
-        });
+            total = total + parseFloat(item.data.price)
+            return total
+        })
 
-        return total;
-    };
+        return total
+    }
 
-    const disabled =
-        !state?.first_name ||
-        !state?.last_name ||
-        !state?.address_1 ||
-        state?.address_2 ||
-        state?.phone ||
-        state?.email ||
-        isEmpty;
+    const disabled = !state?.first_name || !state?.last_name || !state?.address_1 || !state?.phone || !state?.email || isEmpty
 
     const createOrder = (paypalID) => {
         const data = {
-            payment_method: "website",
-            payment_method_title: "testpayment",
+            payment_method: 'website',
+            payment_method_title: 'testpayment',
             set_paid: true,
             billing: {
                 first_name: state?.first_name,
                 last_name: state?.last_name,
                 address_1: state?.address_1,
                 address_2: state?.address_2,
-                city: "-",
-                state: "-",
-                postcode: "-",
-                country: "-",
+                city: '-',
+                state: '-',
+                postcode: '-',
+                country: '-',
                 email: state?.email,
-                phone: state?.phone,
+                phone: state?.phone
             },
             shipping: {
                 first_name: state?.first_name,
                 last_name: state?.last_name,
                 address_1: state?.address_1,
                 address_2: state?.address_2,
-                city: "-",
-                state: "-",
-                postcode: "-",
-                country: "-",
+                city: '-',
+                state: '-',
+                postcode: '-',
+                country: '-'
             },
             line_items: state?.line_items?.map((item) => {
                 return {
                     product_id: item.product_id,
                     variation_id: item.variation_id,
-                    quantity: 1,
-                };
+                    quantity: 1
+                }
             }),
             shipping_lines: [
                 {
-                    method_id: "flat_rate",
-                    method_title: "Flat Rate",
-                    total: "10.00",
-                },
+                    method_id: 'flat_rate',
+                    method_title: 'Flat Rate',
+                    total: '10.00'
+                }
             ],
             meta_data: [
                 {
-                    key: "paypal_id",
-                    value: paypalID,
-                },
-            ],
-        };
+                    key: 'paypal_id',
+                    value: paypalID
+                }
+            ]
+        }
 
-        console.log(data);
+        console.log(data)
 
         Axios.post(`/api/order`, { order: data })
             .then((res) => {
-                console.log(res);
+                console.log(res)
             })
             .catch((err) => {
-                console.log(err);
-            });
-    };
+                console.log(err)
+            })
+    }
 
     return (
         <div className="h-full">
             <div className="h-full grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    {isEmpty && (
-                        <p className="text-xs text-gray-600">
-                            Items you add to your cart will appear here!
-                        </p>
-                    )}
+                    {isEmpty && <p className="text-xs text-gray-600">Items you add to your cart will appear here!</p>}
                     {!isEmpty && (
                         <div className="grid-cols-2 gap-4 hidden sm:grid">
                             {state?.line_items?.map((item, index) => (
                                 <div className="bg-win-gray  border-emboss p-4 space-y-4">
-                                    <img
-                                        className="w-full"
-                                        src={item.data.image?.src}
-                                        alt=""
-                                    />
+                                    <img className="w-full" src={item.data.image?.src} alt="" />
                                 </div>
                             ))}
                         </div>
@@ -122,12 +109,10 @@ export default function CheckoutTab({ close, desktopRef }) {
 
                         <p className="text-xs">
                             {isEmpty ? (
-                                "No items in your cart."
+                                'No items in your cart.'
                             ) : (
                                 <>
-                                    Your cart is filled with the{" "}
-                                    <span className="underline">coolest</span>{" "}
-                                    goodies.
+                                    Your cart is filled with the <span className="underline">coolest</span> goodies.
                                 </>
                             )}
                         </p>
@@ -138,33 +123,23 @@ export default function CheckoutTab({ close, desktopRef }) {
                                     <div key={index}>
                                         <div className="flex items-center border-b-2 py-1 border-dotted border-black">
                                             <div>
-                                                <p className="font-win-bold">
-                                                    {item.name}
-                                                </p>
+                                                <p className="font-win-bold">{item.name}</p>
                                                 <div className="text-xs">
-                                                    {item.data.attributes.map(
-                                                        (attribute, index) => (
-                                                            <span>
-                                                                {attribute.name}
-                                                                :{" "}
-                                                                {
-                                                                    attribute.option
-                                                                }
-                                                            </span>
-                                                        )
-                                                    )}
+                                                    {item.data.attributes.map((attribute, index) => (
+                                                        <span>
+                                                            {attribute.name}: {attribute.option}
+                                                        </span>
+                                                    ))}
                                                     {item.variation_id}
                                                 </div>
                                             </div>
-                                            <p className="ml-auto">
-                                                {item.data.price}
-                                            </p>
+                                            <p className="ml-auto">${item.data.price}</p>
                                             <p className="ml-auto">
                                                 <Button
                                                     onClick={() =>
                                                         dispatch({
-                                                            type: "cart.remove",
-                                                            payload: item.id,
+                                                            type: 'cart.remove',
+                                                            payload: item.id
                                                         })
                                                     }
                                                     className="text-xs font-win-bold"
@@ -193,10 +168,7 @@ export default function CheckoutTab({ close, desktopRef }) {
                     <div className="bg-win-gray border-emboss p-4 space-y-4">
                         <p className="font-win-bold">Checkout</p>
 
-                        <p>
-                            Enter your details to complete and checkout your
-                            order.
-                        </p>
+                        <p>Enter your details to complete and checkout your order.</p>
 
                         <form className="space-y-4" action="">
                             <div>
@@ -205,11 +177,11 @@ export default function CheckoutTab({ close, desktopRef }) {
                                     value={state?.name}
                                     onChange={(e) =>
                                         dispatch({
-                                            type: "set",
+                                            type: 'set',
                                             payload: {
                                                 key: e.target.name,
-                                                value: e.target.value,
-                                            },
+                                                value: e.target.value
+                                            }
                                         })
                                     }
                                     className="block w-full p-1 border-emboss-invert"
@@ -221,11 +193,11 @@ export default function CheckoutTab({ close, desktopRef }) {
                                     value={state?.name}
                                     onChange={(e) =>
                                         dispatch({
-                                            type: "set",
+                                            type: 'set',
                                             payload: {
                                                 key: e.target.name,
-                                                value: e.target.value,
-                                            },
+                                                value: e.target.value
+                                            }
                                         })
                                     }
                                     className="block w-full p-1 border-emboss-invert"
@@ -237,11 +209,11 @@ export default function CheckoutTab({ close, desktopRef }) {
                                     value={state?.email}
                                     onChange={(e) =>
                                         dispatch({
-                                            type: "set",
+                                            type: 'set',
                                             payload: {
                                                 key: e.target.name,
-                                                value: e.target.value,
-                                            },
+                                                value: e.target.value
+                                            }
                                         })
                                     }
                                     className="block w-full p-1 border-emboss-invert"
@@ -253,11 +225,11 @@ export default function CheckoutTab({ close, desktopRef }) {
                                     value={state?.phone}
                                     onChange={(e) =>
                                         dispatch({
-                                            type: "set",
+                                            type: 'set',
                                             payload: {
                                                 key: e.target.name,
-                                                value: e.target.value,
-                                            },
+                                                value: e.target.value
+                                            }
                                         })
                                     }
                                     className="block w-full p-1 border-emboss-invert"
@@ -269,11 +241,11 @@ export default function CheckoutTab({ close, desktopRef }) {
                                     value={state?.address}
                                     onChange={(e) =>
                                         dispatch({
-                                            type: "set",
+                                            type: 'set',
                                             payload: {
                                                 key: e.target.name,
-                                                value: e.target.value,
-                                            },
+                                                value: e.target.value
+                                            }
                                         })
                                     }
                                     className="block w-full p-1 border-emboss-invert"
@@ -285,11 +257,11 @@ export default function CheckoutTab({ close, desktopRef }) {
                                     value={state?.addressTwo}
                                     onChange={(e) =>
                                         dispatch({
-                                            type: "set",
+                                            type: 'set',
                                             payload: {
                                                 key: e.target.name,
-                                                value: e.target.value,
-                                            },
+                                                value: e.target.value
+                                            }
                                         })
                                     }
                                     className="block w-full p-1 border-emboss-invert"
@@ -301,11 +273,11 @@ export default function CheckoutTab({ close, desktopRef }) {
                                     value={state?.notes}
                                     onChange={(e) =>
                                         dispatch({
-                                            type: "set",
+                                            type: 'set',
                                             payload: {
                                                 key: e.target.name,
-                                                value: e.target.value,
-                                            },
+                                                value: e.target.value
+                                            }
                                         })
                                     }
                                     className="block w-full p-1 border-emboss-invert"
@@ -341,11 +313,7 @@ export default function CheckoutTab({ close, desktopRef }) {
                     </div>
 
                     <div className={`bg-win-gray border-emboss p-4 space-y-4`}>
-                        <p className="text-xs">
-                            * Checkout with Stripe to checkout with your credit
-                            or debit card, or checkout with Coinbase to checkout
-                            with your favorite crypto.
-                        </p>
+                        {/* <p className="text-xs">* Checkout with Paypal to checkout with your credit or debit card, or checkout with Coinbase to checkout with your favorite crypto.</p> */}
 
                         {/* <Button
                             className="font-win-bold"
@@ -353,29 +321,30 @@ export default function CheckoutTab({ close, desktopRef }) {
                         >
                             Sample Order
                         </Button> */}
-                        <div
-                            className={
-                                disabled ? "pointer-events-none opacity-25" : ""
-                            }
-                        >
+                        <div className={disabled ? 'pointer-events-none opacity-25' : ''}>
                             <PayPalButton
                                 amount={subtotal()}
                                 onSuccess={async (details, data) => {
-                                    createOrder(details.orderID);
+                                    createOrder(details.orderID)
+                                    createModal('Order confrimed! :)', "We'll email you when your items have shipped.", null)
+
+                                    dispatch({
+                                        type: 'set',
+                                        payload: {
+                                            key: 'line_items',
+                                            value: []
+                                        }
+                                    })
                                 }}
-                                catchError={(e) => alert("An error occurred.")}
+                                catchError={(e) => alert('An error occurred.')}
                                 options={{
-                                    clientId:
-                                        "AVi6nK4oMY5K78xyH4puUR4R7U5yTT0bbHdjB_b-Y2QreIc60NR4rbfElG8ED3CfIu_kSivCzVN52Jv2",
+                                    clientId: process.env.NEXT_PUBLIC_PAYPAL_SANDBOX_CLIENT_ID
                                 }}
                             />
                         </div>
-                        {/* <Button className="font-win-bold">
-                                Checkout with Coinbase (Crypto)
-                            </Button> */}
                     </div>
                 </div>
             </div>
         </div>
-    );
+    )
 }
